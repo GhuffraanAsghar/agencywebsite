@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwiftTech Solutions - iOS Development</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+
+    <style>
+         :root {
+            --primary-color: #007AFF;
+            --secondary-color: #5856D6;
+            --dark-color: #1A1A1A;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        /* General Styles */
+        
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .navbar {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .nav-link {
+            position: relative;
+            color: var(--dark-color);
+            font-weight: 500;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        /* Hero Section */
+        
+        .hero-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 160px 0 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero-subtitle {
+            animation: fadeInUp 1s ease 0.2s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        
+        .hero-image {
+            animation: float 6s ease-in-out infinite;
+        }
+        /* Features Section */
+        
+        .feature-card {
+            border-radius: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: white;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            background: var(--primary-color);
+            color: white;
+        }
+        /* Bento Grid Styles */
+        
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        .bento-item {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .bento-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .bento-item.large {
+            grid-column: span 8;
+            grid-row: span 2;
+        }
+        
+        .bento-item.medium {
+            grid-column: span 4;
+            grid-row: span 2;
+        }
+        
+        .bento-item.small {
+            grid-column: span 4;
+            grid-row: span 1;
+        }
+        
+        @media (max-width: 992px) {
+            .bento-item.large,
+            .bento-item.medium,
+            .bento-item.small {
+                grid-column: span 12;
+            }
+        }
+        /* 3D Icon Styles */
+        
+        .icon-3d {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            perspective: 1000px;
+            margin-bottom: 20px;
+        }
+        
+        .icon-3d-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+        
+        .icon-3d:hover .icon-3d-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .icon-3d-front,
+        .icon-3d-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            font-size: 2rem;
+        }
+        
+        .icon-3d-front {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+        
+        .icon-3d-back {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            transform: rotateY(180deg);
+            color: white;
+        }
+        /* Process Timeline */
+        
+        .process-timeline {
+            position: relative;
+            padding: 40px 0;
+        }
+        
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 100%;
+            background: var(--primary-color);
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+        }
+        
+        .timeline-item {
+            margin-bottom: 50px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .timeline-content {
+            width: 45%;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .timeline-left {
+            margin-right: 55%;
+        }
+        
+        .timeline-right {
+            margin-left: 55%;
+        }
+        
+        .timeline-left::before {
+            right: -60px;
+        }
+        
+        .timeline-right::before {
+            left: -60px;
+        }
+        /* Tech Stack Section */
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .tech-item {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            width: 150px;
+            transition: transform 0.3s ease;
+        }
+        
+        .tech-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .tech-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        /* Team Section */
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+        
+        .team-member {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+        
+        .team-img-wrapper {
+            position: relative;
+            padding-top: 100%;
+            overflow: hidden;
+        }
+        
+        .team-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .team-info {
+            padding: 20px;
+            text-align: center;
+        }
+        /* Testimonial Carousel Enhancement */
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px;
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            font-size: 100px;
+            color: var(--primary-color);
+            opacity: 0.1;
+        }
+        /* Blog Section */
+        
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+        
+        .blog-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .blog-img-wrapper {
+            position: relative;
+            padding-top: 60%;
+            overflow: hidden;
+        }
+        
+        .blog-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .blog-content {
+            padding: 20px;
+        }
+        /* Achievement Cards */
+        
+        .achievement-card {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 20px;
+            padding: 30px;
+            color: white;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .achievement-card::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+        }
+        /* Custom Button */
+        
+        .btn-custom {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .btn-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 122, 255, 0.2);
+            color: white;
+        }
+        /* Portfolio Section */
+        
+        .portfolio-item {
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 122, 255, 0.9);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        /* Contact Section */
+        
+        .contact-form input,
+        .contact-form textarea {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .contact-info {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 20px;
+            padding: 40px;
+        }
+        /* Footer Custom Styles */
+        
+        .footer-custom {
+            background-color: var(--dark-color);
+            color: rgb(250, 244, 244);
+            padding: 40px 0;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            /* Adjust as needed */
+            margin: 0 auto;
+            /* Center the container */
+        }
+        
+        .footer-col {
+            padding: 20px;
+            /* Add padding for spacing */
+        }
+        
+        .footer-col-left {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            grid-column: span 6;
+            /* Left column takes half the width */
+        }
+        
+        .footer-col-right {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            grid-column: span 6;
+            /* Right column takes half the width */
+        }
+        
+        .footer-col-full {
+            grid-column: span 12;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            /* Full width for the follow us section */
+        }
+        
+        .footer-text {
+            margin-bottom: 10px;
+        }
+        
+        .footer-heading {
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .footer-link {
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: white;
+        }
+        
+        .footer-col-full a {
+            font-size: 1.5rem;
+            /* Adjust icon size */
+            margin: 0 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .footer-col-full a:hover {
+            transform: scale(1.1);
+        }
+        /* Bento Grid Styles for Footer */
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .footer-col-left,
+            .footer-col-right,
+            .footer-col-full {
+                grid-column: span 12;
+                /* Stack columns on smaller screens */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <i class="fas fa-code me-2 text-primary"></i>
+                <span class="fw-bold">TS TECHNOLOGY</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#portfolio">Portfolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item ms-3">
+                        <a class="btn btn-custom" href="#contact">Get Started</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="hero-title" id="template3-hero-title">Transform Your Ideas Into Amazing iOS Apps</h1>
+                    <p class="hero-subtitle lead mb-4" id="template3-hero-description">We craft stunning, high-performance iOS applications that deliver exceptional user experiences.</p>
+                    <a href=" #contact" class="btn btn-custom btn-lg" data-aos="fade-up" data-aos-delay="400">Start Your Project</a>
+                </div>
+                <div class="col-lg-6 ">
+                    <img src="images/heroImage/hero-image.png" alt="iOS Development" class="img-fluid hero-image">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- New Bento Grid Features Section -->
+    <section class="py-5" id="features ">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold">Why Choose Us</h2>
+                <p class="text-muted" id="template3-skill-description">Experience excellence in iOS development</p>
+            </div>
+
+            <div class="bento-grid">
+                <div class="bento-item large" data-aos="fade-up">
+                    <div class="icon-3d">
+                        <div class="icon-3d-inner">
+                            <div class="icon-3d-front">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <div class="icon-3d-back">
+                                <i class="fas fa-code"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 id="template3-skill1-title">Native iOS Development</h3>
+                    <p id="template3-skill1-description">Leveraging the latest Swift technologies and iOS frameworks to build high-performance applications that provide seamless user experiences.</p>
+                    <ul class="mt-3">
+                        <li>Swift & SwiftUI expertise</li>
+                        <li>Native performance optimization</li>
+                        <li>iOS design guidelines compliance</li>
+                    </ul>
+                </div>
+
+                <div class="bento-item medium" data-aos="fade-up" data-aos-delay="200">
+                    <div class="icon-3d">
+                        <div class="icon-3d-inner">
+                            <div class="icon-3d-front">
+                                <i class="fas fa-paint-brush"></i>
+                            </div>
+                            <div class="icon-3d-back">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 id="template3-skill2-title">UI/UX Design</h3>
+                    <p id="template3-skill2-description">Creating intuitive and engaging user interfaces that follow Apple's Human Interface Guidelines while maintaining your brand identity.</p>
+                </div>
+                <div class="bento-item small" data-aos="fade-up" data-aos-delay="300">
+                    <div class="icon-3d">
+                        <div class="icon-3d-inner">
+                            <div class="icon-3d-front">
+                                <i class="fas fa-shield-alt "></i>
+                            </div>
+                            <div class="icon-3d-back">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 id="template3-skill3-title">Security First</h3>
+                    <p id="template3-skill3-description">Implementation of robust security measures to protect user data and ensure app integrity.</p>
+                </div>
+
+                <div class="bento-item small" data-aos="fade-up" data-aos-delay="400">
+                    <div class="icon-3d">
+                        <div class="icon-3d-inner">
+                            <div class="icon-3d-front">
+                                <i class="fas fa-cloud"></i>
+                            </div>
+                            <div class="icon-3d-back">
+                                <i class="fas fa-database"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 id="template3-skill4-title">Cloud Integration</h3>
+                    <p id="template3-skill4-description">Seamless integration with cloud services for scalable backend solutions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Development Process Timeline -->
+    <section class="py-5 bg-light ">
+        <div class="container ">
+            <h2 class="text-center mb-5" data-aos="fade-up">Our Development Process</h2>
+
+            <div class="process-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content timeline-left" data-aos="fade-right">
+                        <h4>1. Discovery & Planning</h4>
+                        <p>Understanding your requirements and creating a detailed project roadmap.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content timeline-right" data-aos="fade-left">
+                        <h4>2. Design & Prototyping</h4>
+                        <p>Creating wireframes and interactive prototypes for your approval.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content timeline-left" data-aos="fade-right">
+                        <h4>3. Development</h4>
+                        <p>Writing clean, efficient code following best practices.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content timeline-right" data-aos="fade-left">
+                        <h4>4. Testing & QA</h4>
+                        <p>Rigorous testing to ensure quality and performance.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content timeline-left" data-aos="fade-right">
+                        <h4>5. Deployment</h4>
+                        <p>App Store submission and launch support.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5" data-aos="fade-up">Our Tech Stack</h2>
+
+            <div class="tech-stack">
+                <div class="tech-item" data-aos="fade-up">
+                    <i class="fab fa-swift tech-icon"></i>
+                    <h5>Swift</h5>
+                </div>
+                <div class="tech-item" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fab fa-apple tech-icon "></i>
+                    <h5>SwiftUI</h5>
+                </div>
+                <div class="tech-item" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-mobile-alt tech-icon "></i>
+                    <h5>UIKit</h5>
+                </div>
+                <div class="tech-item" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-database tech-icon "></i>
+                    <h5>CoreData</h5>
+                </div>
+                <div class="tech-item" data-aos="fade-up" data-aos-delay="400">
+                    <i class="fas fa-cloud tech-icon"></i>
+                    <h5>CloudKit</h5>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Services Section -->
+    <section class="py-5" id="services">
+        <div class="container py-5 ">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold mb-3">Our Services</h2>
+                <p class="text-muted" data-aos="fade-up" data-aos-delay="200" id="template3-service-description">We offer comprehensive iOS development solutions</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-card p-4 h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h4 id="template3-service-1-title">Custom iOS Development</h4>
+                        <p class="text-muted " id="template3-service-1-description">Build tailored iOS applications that perfectly match your business needs.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="600">
+                    <div class="feature-card p-4 h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h4 id="template3-service-2-title">UI/UX Design</h4>
+                        <p class="text-muted" id="template3-service-2-description">Create intuitive and engaging user interfaces following iOS design guidelines.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="800">
+                    <div class="feature-card p-4 h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <h4 id="template3-service-3-title">App Maintenance</h4>
+                        <p class="text-muted" id="template3-service-3-description">Ongoing support and updates to keep your app running smoothly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="bg-light py-5" id="portfolio">
+        <div class="container py-5">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold mb-3">Our Portfolio</h2>
+                <p class="text-muted" data-aos="fade-up" data-aos-delay="200">Check out some of our recent iOS projects</p>
+            </div>
+            <div class="row g-4 ">
+                <div class="col-lg-4 " data-aos="zoom " data-aos-delay="400">
+                    <div class="portfolio-item ">
+                        <img src="images/bodyImage/project1.png" data-aos="zoom-in" alt="Project 1" class="img-fluid">
+                        <div class="portfolio-overlay">
+                            <div class="text-center">
+                                <h5 id="template3-project1-title">Fitness App</h5>
+                                <p>iOS Development</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="600">
+                    <div class="portfolio-item">
+                        <img src="images/bodyImage/project2.png" data-aos="zoom-in" alt="Project 2" class="img-fluid">
+                        <div class="portfolio-overlay ">
+                            <div class="text-center ">
+                                <h5 id="template3-project2-title">E-commerce App</h5>
+                                <p>iOS Development</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="800">
+                    <div class="portfolio-item ">
+                        <img src="images/bodyImage/project3.png" data-aos="zoom-in" alt="Project 3" class="img-fluid">
+                        <div class="portfolio-overlay">
+                            <div class="text-center">
+                                <h5 id="template3-project3-title">Social Media App</h5>
+                                <p>iOS Development</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-5 " id="contact">
+        <div class="container py-5">
+            <div class="row g-4">
+                <div class="col-lg-6" data-aos="fade-up">
+                    <h2 class="fw-bold mb-4" data-aos="fade-up">Let's Discuss Your Project</h2>
+                    <form class="contact-form">
+                        <input type="text" class="form-control" placeholder="Your Name">
+                        <input type="email" class="form-control" placeholder="Your Email">
+                        <textarea class="form-control" rows="5" placeholder="Project Details"></textarea>
+                        <button type="submit" class="btn btn-custom">Send Message</button>
+                    </form>
+                </div>
+                <div class="col-lg-5 offset-lg-1" data-aos="fade-up" data-aos-delay="200">
+                    <div class="contact-info">
+                        <h3 class="mb-4">Contact Information</h3>
+                        <p><i class="fas fa-map-marker-alt me-2"></i>Mezan Tower Executive</p>
+                        <p><i class="fas fa-phone me-2"></i>+123456789</p>
+                        <p><i class="fas fa-envelope me-2"></i>example@gmail.com</p>
+                        <div class="mt-4 ">
+                            <a href="https://www.facebook.com " class="footer-link me-3 "><i class="fab fa-facebook-f "></i></a>
+                            <a href="https://www.twitter.com " class="footer-link me-3 "><i class="fab fa-twitter "></i></a>
+                            <a href="https://www.instagram.com " class="footer-link "><i class="fab fa-instagram "></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-custom ">
+        <div class="footer-container bento-grid ">
+            <div class="footer-col footer-col-left bento-item ">
+                <p class="footer-text mb-0 ">© 2024 TS TECHNOLOGY. All rights reserved.</p>
+                <p class="footer-text mb-0 ">Mezan Tower Executive</p>
+                <p class="footer-text mb-0 ">Phone: <i class="fas fa-phone "></i>+123456789</p>
+                <p class="footer-text mb-0 ">Email: <a href="mailto:contact@swifttech.com " class="footer-link "><i class="fas fa-envelope "></i>example@gmail.com</a></p>
+            </div>
+            <div class="footer-col footer-col-right bento-item ">
+                <h5 class="footer-heading ">Quick Links</h5>
+                <a href="#privacy " class="footer-link me-3 "><i class="fas fa-shield-alt "></i> Privacy Policy</a>
+                <a href="#terms " class="footer-link me-3 "><i class="fas fa-file-contract "></i> Terms of Service</a>
+                <a href="#faqs " class="footer-link "><i class="fas fa-question-circle "></i> FAQ</a>
+            </div>
+            <div class="footer-col footer-col-full bento-item ">
+                <h5 class="footer-heading ">Follow Us</h5>
+                <a href="https://www.facebook.com " class="footer-link me-3 "><i class="fab fa-facebook-f "></i></a>
+                <a href="https://www.twitter.com " class="footer-link me-3 "><i class="fab fa-twitter "></i></a>
+                <a href="https://www.instagram.com " class="footer-link "><i class="fab fa-instagram "></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js "></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="# "]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        // Navbar background change on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            } else {
+                navbar.style.boxShadow = 'none';
+            }
+        });
+
+        // Form submission handling
+        const contactForm = document.querySelector('.contact-form');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Add loading state to button
+            const submitButton = this.querySelector('button[type="submit "]');
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2 "></i>Sending...';
+            submitButton.disabled = true;
+
+            // Simulate form submission (replace with actual form submission)
+            setTimeout(() => {
+                submitButton.innerHTML = '<i class="fas fa-check me-2 "></i>Sent Successfully';
+                submitButton.classList.add('btn-success');
+
+                // Reset form
+                setTimeout(() => {
+                    this.reset();
+                    submitButton.innerHTML = 'Send Message';
+                    submitButton.classList.remove('btn-success');
+                    submitButton.disabled = false;
+                }, 3000);
+            }, 2000);
+        });
+
+        // Portfolio hover effect enhancement
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.querySelector('.portfolio-overlay').style.opacity = '1';
+            });
+
+            item.addEventListener('mouseleave', function() {
+                this.querySelector('.portfolio-overlay').style.opacity = '0';
+            });
+        });
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            document.body.classList.add('loaded');
+        });
+
+        // Dynamic counter animation for statistics
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 100;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.ceil(current);
+                }
+            }, 10);
+        }
+
+        // Add statistics section (add this HTML before the contact section)
+        const statsSection = ``;
+
+        // Insert stats section before contact section
+        document.querySelector('#contact').insertAdjacentHTML('beforebegin', statsSection);
+
+        // Animate counters when in viewport
+        const options = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.querySelectorAll('.counter').forEach((counter, index) => {
+                        const targets = [250, 200, 50, 25]; // Target values for each counter
+                        animateCounter(counter, targets[index]);
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, options);
+
+        // Observe stats section
+        const statsContainer = document.querySelector('.bg-primary');
+        observer.observe(statsContainer);
+
+        // Add scroll to top button
+        const scrollButton = document.createElement('button');
+        scrollButton.className = 'scroll-to-top btn btn-primary rounded-circle';
+        scrollButton.innerHTML = '<i class="fas fa-arrow-up "></i>';
+        document.body.appendChild(scrollButton);
+
+        // Add styles for scroll to top button
+        const style = document.createElement('style');
+        style.textContent = ``;
+        document.head.appendChild(style);
+
+        // Show/hide scroll to top button
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                scrollButton.classList.add('visible');
+            } else {
+                scrollButton.classList.remove('visible');
+            }
+        });
+
+        // Scroll to top functionality
+        scrollButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,101 @@
+{
+    "theme": [{
+        "colorcode": "#007AFF"
+    }, {
+        "colorcode": "#C33764"
+    }],
+    "companyName": "TS TECHNOLOGY",
+    "isLogo": false,
+    "heroImage": [
+        "hero-image.png"
+    ],
+    "bodyImage": [
+        "project1.png",
+        "project2.png",
+        "project3.png"
+    ],
+
+    "changes": [{
+            "name": "Hero Title",
+            "id": "template3-hero-title"
+        },
+        {
+            "name": "Hero Description",
+            "id": "template3-hero-description"
+        },
+        {
+            "name": "Skill Description",
+            "id": "template3-skill-description"
+        },
+        {
+            "name": "skill title",
+            "id": "template3-skill1-title"
+        },
+        {
+            "name": "Skill 1 Description",
+            "id": "template3-skill1-description"
+        },
+        {
+            "name": "skill 2 title",
+            "id": "template3-skill2-title"
+        },
+        {
+            "name": "Skill 2 Description",
+            "id": "template3-skill2-description"
+        },
+        {
+            "name": "skill 3 title",
+            "id": "template3-skill3-title"
+        },
+        {
+            "name": "skill 3 Description",
+            "id": "template3-skill3-description"
+        },
+        {
+            "name": "skill 4 title",
+            "id": "template3-skill4-title"
+        },
+        {
+            "name": "skill 4 Description",
+            "id": "template3-skill4-description"
+        },
+        {
+            "name": "Service 1 title",
+            "id": "template3-service-1-title"
+        },
+        {
+            "name": "Service 1 Description",
+            "id": "template3-service-1-description"
+        },
+        {
+            "name": "Service 2 title",
+            "id": "template3-service-2-title"
+        },
+        {
+            "name": "Service 2 Description",
+            "id": "template3-service-2-description"
+        },
+        {
+            "name": "Service 3 title",
+            "id": "template3-service-3-title"
+        },
+        {
+            "name": "Service 3 Description",
+            "id": "template3-service-3-description"
+        },
+        {
+            "name": "Project Item 1",
+            "id": "template3-project1-title"
+        },
+
+        {
+            "name": "Project Item 2",
+            "id": "template3-project2-title"
+        },
+
+        {
+            "name": "Project Item 3",
+            "id": "template3-project3-title"
+        }
+    ]
+}
